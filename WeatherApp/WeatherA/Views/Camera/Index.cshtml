@@ -1,0 +1,235 @@
+﻿@model WeatherA.Models.Session_log
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entrada/Salida-CESG:</title>
+    <meta charset='utf-8'>
+
+
+    <link href="~/Content/main.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="~/Content/capture.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .form-control {
+            display: block;
+            width: 25%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            vertical-align: middle;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        div.fixed {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            /*border: 3px solid #73AD21;*/
+            text-align: right;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="contentarea">
+
+        <center>
+            <h3>
+                Registro de Entrada y Salida
+                @Html.AntiForgeryToken()
+            </h3>
+            <img src="~/images/logoSantoDomingo.png" height="150" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <table style="width: 90%; margin-left: auto; margin-right: auto;" border="0">
+                <tbody>
+                    <tr style="text-align: center;">
+                        <td>
+                            <div class="camera">
+                                <video id="video">Video stream not available.</video>
+                            </div>
+                        </td>
+                        <td><button id="startbutton" class="btn btn-primary">Tomar Foto</button></td>
+                        <td>
+                            <div class="output">
+                                <img id="photo" alt="The screen capture will appear in this box.">
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <table style="width: 90%; margin-left: auto; margin-right: auto;" border="0">
+                <tbody>
+                    <tr>
+                        <td colspan="2" align="center">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" align="right">
+                            <input type="text" class="form-control" id="usr" placeholder="Número de Cédula"  onkeyup="evaluar()">
+                        </td>
+                        <td width="50%">
+                            @Html.HiddenFor(model => model.Entry)
+                            @Html.HiddenFor(model => model.Date)
+                            @Html.HiddenFor(model => model.UserID)                     
+                            @Html.HiddenFor(model => model.PhotoFile)
+                            @Html.HiddenFor(model => model.Photo)                           
+                            
+                            <input type="button" id="enviar" value="Enviar" class="btn btn-success" style="display:none" />
+                                                     
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </center>
+        <form enctype="multipart/form-data" hidden="hidden"></form>
+
+        <canvas id="canvas"></canvas>
+
+    </div>
+    <div class="fixed">
+        Developed by<a href="http://www.waskha.net/" target="_blank">Waskha Soluciones</a>
+        <img src="~/images/loginIcon.png" width="30" id="">
+        @Html.ActionLink("Revisar", "Index", "Home", new {  }, null)
+
+
+    </div>
+</body>
+</html>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    
+    function evaluar() {
+        var x = document.getElementById("usr").value;
+        var Url = '@Url.Action("GetUser", "Generic")';
+        
+
+        $.ajax({
+            type: 'POST',
+            url: Url,
+            dataType: 'json',
+            data: { id: document.getElementById("usr").value },
+            success: function (data) {
+                $.each(data, function (i, data) {
+                    var userid = data.UserID;
+                    //alert('mensaje' + userid);
+                    //<input type="text" class="form-control" id="UserID" style ="display:none"/>
+
+                    document.getElementById("UserID").value = userid;
+                    //alert('mensaje' + document.getElementById("UserID").value);
+                    document.getElementById("enviar").style.display = "inline";
+                    
+                    //document.getElementById('myform').submit();
+                });
+                
+            },
+            error: function (ex) {
+                //alert('un errorsillo' + ex);
+                //Html.TextBoxFor(modelo => modelo.PhotoFile, new { style = "display:none", type = "file", id = "files" })
+                document.getElementById("enviar").style.display = "none";
+            }
+        });
+        return false;
+
+
+    }
+
+
+    function SubmitButtonOnclick() {
+        
+
+    }
+
+    function UploadComplete(evt) {
+        if (evt.target.status == 200)
+            alert("Logo uploaded successfully.");
+
+        else
+            alert("Error Uploading File" + evt);
+    }
+
+    function UploadFailed(evt) {
+        alert("There was an error attempting to upload the file.");
+
+    }
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $('#enviar').click(function () {
+
+        /*var formdata = new FormData();
+        var url = 'Url.Action("guardarlog", "Generic")';
+
+
+        var ImageDir = new FileReader();
+        ImageDir.onload = function (e) {
+            var imgBlob = new Blob([e.target.result], { type: "image/jpeg" });
+            formdata.append('PhotoFile', imgBlob);
+            //$('#PhotoFile').attr('src', e.target.result);
+        }
+        //ImageDir.readAsDataURL(input.files[0]);
+
+
+
+        //formdata.append('PhotoFile', ImageDir);
+        formdata.append('UserID', $('#UserID').val());
+
+        $.ajax({
+        type: "POST",
+        url: url,
+        data: formdata,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+        alert('siiii');
+        console.log(result);
+        },
+        error: function (result) {
+            alert('noooo ' + result);
+        console.log(result);
+        }
+        });
+        */
+        var formdata = new FormData($('form')[0]);
+
+        /*var ImageDir = new FileReader();
+        ImageDir.onload = function (e) {
+            var imgBlob = new Blob([e.target.result], { type: "image/jpeg" });
+            formdata.append('PhotoFile', imgBlob);
+            //$('#PhotoFile').attr('src', e.target.result);
+        }*/
+        //var can = document.getElementsByTagName("PhotoFile");
+        //var imgg = $('#canvas')[0].toDataURL("image/png").replace("image/png");
+        var imgg = $('#canvas')[0].toDataURL("image/png").replace('data:image/png;base64,', '');
+        formdata.append('Photo', imgg);
+        formdata.append('UserID', $('#UserID').val());
+        //alert("imagen: " + imgg);
+        var xhr = new XMLHttpRequest();
+        var url = '@Url.Action("guardarlog", "Generic")';
+        xhr.open("POST", url, true);
+        xhr.addEventListener("load", function (evt) { UploadComplete(evt); }, false);
+        xhr.addEventListener("error", function (evt) { UploadFailed(evt); }, false);
+        xhr.send(formdata);
+    });
+});
+</script>
