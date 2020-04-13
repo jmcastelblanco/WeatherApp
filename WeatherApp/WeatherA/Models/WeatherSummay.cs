@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace WeatherA.Models
 {
@@ -10,16 +7,11 @@ namespace WeatherA.Models
     {
         [Key]
         public int WeatherSummaryID { get; set; }
-
-        //public string stationID { get; set; }
-        //public double lat { get; set; }
-        //public double lon { get; set; }
-        public DateTime obsTimeUtc { get; set; }
-
-        public int humidityHigh { get; set; }
-        public int humidityLow { get; set; }
-        public int humidityAvg { get; set; }
-
-        //public int qcStatus { get; set; }
+        public int humidity { get; set; }
+        public double temp  { get; set; }
+        public double precipRate  { get; set; }
+        public string obsTimeLocal { get; set; }
+        public string neighborhood  { get; set; }
+        public string stationID  { get; set; }
     }
 }

@@ -1,11 +1,8 @@
-﻿using WeatherA.Models;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Web.Configuration;
+using WeatherA.Models;
 
 namespace WeatherA.Class
 {
@@ -78,7 +75,7 @@ namespace WeatherA.Class
             if (userASP == null)
             {
                 CreateUserAsp(email, "SuperAdmin", password);
-                
+
                 return;
             }
             userASP = userManager.FindByName(email);
@@ -88,7 +85,7 @@ namespace WeatherA.Class
             //userManager.AddToRole(userASP.Id, "User");
         }
 
-        public static void CreateUserAsp(string email, string roleName,string pass)
+        public static void CreateUserAsp(string email, string roleName, string pass)
         {
             var userManager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(usuarioContext));
@@ -99,8 +96,8 @@ namespace WeatherA.Class
                 {
                     UserName = email,
                     Email = email,
-                    PasswordHash=pass,
-                    
+                    PasswordHash = pass,
+
                 };
                 userManager.Create(userASP, email);
             }

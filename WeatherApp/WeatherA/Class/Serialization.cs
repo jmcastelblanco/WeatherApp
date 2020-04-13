@@ -1,14 +1,15 @@
-﻿using WeatherA.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using WeatherA.Models;
+using WeatherA.Models.URLCurrent;
 
 namespace WeatherServices
 {
     public class Serialization
     {
-        public DailyData DesSerializar(string json)
+        public CurrentData DesSerializar(string json)
         {
-            DailyData data = new DailyData();
-            data = JsonConvert.DeserializeObject<DailyData>(json);
+            CurrentData data = new CurrentData();
+            data = JsonConvert.DeserializeObject<CurrentData>(json);
             return data;
         }
     }

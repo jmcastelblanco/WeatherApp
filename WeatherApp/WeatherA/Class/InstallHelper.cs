@@ -1,9 +1,6 @@
-﻿using WeatherA.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Web;
-using System.Web.Configuration;
+using WeatherA.Models;
 
 namespace WeatherA.Class
 {
@@ -15,24 +12,80 @@ namespace WeatherA.Class
         {
             AddParameters();
             insSuperadmin();
+            AddAlertTypes();
+            AddStates();
+        }
+        public static void AddStates()
+        {
+            var consulta = db.States.Count();
+            if (consulta < 1)
+            {
+                var state = new State()
+                {
+                    Name = "New",
+                };
+                db.States.Add(state);
+                state = new State()
+                {
+                    Name = "Fix",
+                };
+                db.States.Add(state);
+                state = new State()
+                {
+                    Name = "End",
+                };
+                db.States.Add(state);
+                db.SaveChanges();
+            }
+        }
+        public static void AddAlertTypes()
+        {
+            var consulta = db.AlertTypes.Count();
+            if (consulta < 1)
+            {
+                var alertType = new AlertType()
+                {
+                    Description = "CafeIssue",
+                };
+                db.AlertTypes.Add(alertType);
+                db.SaveChanges();
+            }
         }
         public static void AddParameters()
         {
             var consulta = db.Parameters.Count();
             if (consulta < 1)
             {
-                insParameter("apiKey"
+                insParameter("APIKey"
                     , "be06c9df19a94dd986c9df19a92dd9ea"
-                    , "API Key");
-                insParameter("URL7"
-                    , "https://api.weather.com/v2/pws/dailysummary/7day?stationId=KMAHANOV10&format=json&units=e&"
-                    , "URL para mostrar los 7 ultimos dias de la fecha actual");
-                insParameter("URLHourly"
-                    , "https://api.weather.com/v2/pws/history/hourly?stationId=KCAOAKLA44&format=json&units=m"
-                    , "URL para mostrar las ultimas 24 horas de la fecha puesta");
+                    , "API Key de Weather Services");
                 insParameter("TimeInterval"
                     , "2"
                     , "Tiempo en minutos para el intervalo en que se ejecuta el servicio windows");
+                insParameter("StationID"
+                    , "ISANJU36"
+                    , "ID de estación");
+                insParameter("Units"
+                    , "h"
+                    , "Unidad de medida para mostrar la data");
+                insParameter("humidityMax"
+                    , "100"
+                    , "Parametro de humedad máximo");
+                insParameter("humidityMin"
+                    , "30"
+                    , "Parametro de humedad minimo");
+                insParameter("precipMax"
+                    , "60"
+                    , "Parametro de precipitación máximo");
+                insParameter("precipMin"
+                    , "0"
+                    , "Parametro de precipitación minimo");
+                insParameter("tempMax"
+                    , "40"
+                    , "Parametro de temperatura máximo");
+                insParameter("tempMin"
+                    , "10"
+                    , "Parametro de temperatura minimo");
                 db.SaveChanges();
             }
         }
@@ -74,16 +127,16 @@ namespace WeatherA.Class
                     SecondName = "Andrés",
                     Phone = "3122683980",
                     Address = "Unknown",
-                    CountryID=1,
-                    DocumentTypeID=1,
-                    DocumentNumber="13088512",
+                    CountryID = 1,
+                    DocumentTypeID = 1,
+                    DocumentNumber = "13088512",
                     DepartmentID = 21,
                     CityID = 801,
                     LastName = "Gómez",
                     RolID = 1,
                     UserName = "soidneo@gmail.com",
-                    password ="123456",
-                    
+                    password = "123456",
+
                 };
                 db.Users.Add(user);
                 db.SaveChanges();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace WeatherA.Models
 {
@@ -17,5 +14,6 @@ namespace WeatherA.Models
         [Index("State_Name_Index", IsUnique = true)]
         [Display(Name = "Estado")]
         public string Name { get; set; }
+        public virtual ICollection<Alert> Alerts { get; set; }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WeatherA.Models
 {
     public class Observation
     {
-        public string stationID { get; set; } 
+        public string stationID { get; set; }
         public string tz { get; set; }
         public DateTime obsTimeUtc { get; set; }
         public string obsTimeLocal { get; set; }

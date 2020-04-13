@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Weather.Service
 {
@@ -12,14 +8,25 @@ namespace Weather.Service
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            if (Environment.UserInteractive)
             {
-                new WeatherService()
-            };
-            ServiceBase.Run(ServicesToRun);
+                new WeatherServices().DonwloadData(1);
+            }
+            else
+            {
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                {
+                    new WeatherServices()
+                };
+
+                ServiceBase.Run(ServicesToRun);
+            }
         }
     }
 }

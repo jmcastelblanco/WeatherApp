@@ -1,15 +1,14 @@
-﻿using WeatherA.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using WeatherA.Models;
 
 namespace WeatherA.Class
 {
     public class CombosHelper : IDisposable
     {
         private static WeatherAContext db = new WeatherAContext();
-        
+
         public static List<Rol> GetRoles()
         {
             var roles = db.Roles.ToList();
@@ -20,7 +19,7 @@ namespace WeatherA.Class
             });
             return roles.OrderBy(d => d.Name).ToList();
         }
-        
+
         public void Dispose()
         {
             db.Dispose();

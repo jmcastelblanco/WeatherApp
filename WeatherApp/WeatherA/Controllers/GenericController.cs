@@ -1,13 +1,10 @@
-﻿using WeatherA.Class;
-using WeatherA.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using WeatherA.Class;
+using WeatherA.Models;
 
 namespace WeatherA.Controllers
 {
@@ -19,7 +16,7 @@ namespace WeatherA.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             var user = db.Users.Where(c => c.DocumentNumber == id);
-            if (user.Count()<1)
+            if (user.Count() < 1)
             {
                 var errorModel = new { error = "Error" };
                 return new JsonHttpStatusResult(errorModel, HttpStatusCode.InternalServerError);
@@ -42,7 +39,7 @@ namespace WeatherA.Controllers
             var dia = DateTime.Now.DayOfWeek.ToString();
             CultureInfo ci = CultureInfo.InvariantCulture;
             var hora = DateTime.Now.ToString("hh:mm", ci);
-            
+
             var session = new Session_log
             {
                 UserID = UserID,
@@ -51,14 +48,14 @@ namespace WeatherA.Controllers
                 Commentaries = hora,
             };
             var folder = "~/Content/photos";
-            var fileName = string.Format("user{0}{1}.jpg", session.UserID,session.Date.ToString("yyyyMMdd_hhmmss"));
-           
-            
+            var fileName = string.Format("user{0}{1}.jpg", session.UserID, session.Date.ToString("yyyyMMdd_hhmmss"));
+
+
 
             if (FilesHelper.UploadImagePath(Photo, folder,
                 fileName))
             {
-                
+
                 var pic = string.Format("{0}/{1}", folder, fileName);
                 session.Photo = pic;
                 db.Session_logs.Add(session);

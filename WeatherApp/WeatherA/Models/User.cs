@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Web;
 
 namespace WeatherA.Models
@@ -26,7 +24,7 @@ namespace WeatherA.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(256, ErrorMessage = "El campo {0} debe tener entre {2} y {1}", MinimumLength = 3)]
         [DataType(DataType.EmailAddress)]
-        [Index("User_UserName_Index",IsUnique = true)]
+        [Index("User_UserName_Index", IsUnique = true)]
         public string UserName { get; set; }
 
         [Display(Name = "Primer Nombre")]
@@ -86,5 +84,6 @@ namespace WeatherA.Models
         [NotMapped]
         public HttpPostedFileBase PhotoFile { get; set; }
         public virtual ICollection<Session_log> Session_logs { get; set; }
+        public virtual Rol Rol { get; set; }
     }
 }

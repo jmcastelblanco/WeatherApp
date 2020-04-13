@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using WeatherA.Models;
 
 namespace WeatherA.Controllers
@@ -32,9 +31,9 @@ namespace WeatherA.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -331,7 +330,7 @@ namespace WeatherA.Controllers
             base.Dispose(disposing);
         }
 
-#region Aplicaciones auxiliares
+        #region Aplicaciones auxiliares
         // Se usan para protección XSRF al agregar inicios de sesión externos
         private const string XsrfKey = "XsrfId";
 
@@ -382,6 +381,6 @@ namespace WeatherA.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

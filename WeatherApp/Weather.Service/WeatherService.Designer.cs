@@ -1,6 +1,6 @@
 ﻿namespace Weather.Service
 {
-    partial class WeatherService
+    partial class WeatherServices
     {
         /// <summary> 
         /// Variable del diseñador necesaria.

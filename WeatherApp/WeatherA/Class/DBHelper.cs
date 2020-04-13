@@ -1,28 +1,25 @@
-﻿using WeatherA.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WeatherA.Class;
-using System.Data.Entity;
-using System.Data.SqlClient;
+﻿using System;
 using System.Configuration;
+using System.Linq;
+using WeatherA.Models;
+using WeatherA.Models.URLCurrent;
 
 namespace WeatherA.Class
 {
-    
+
 
     public class DbHelper
     {
         private WeatherAContext dbase = new WeatherAContext();
         readonly string _connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private ErrorHelper errorH = new ErrorHelper();
         public static Response Save(WeatherAContext db)
         {
             try
             {
                 db.SaveChanges();
-                Hubs.MessagesHub.SendMessages();
-                return new Response { Succeeded = true, };
+                //Hubs.MessagesHub.SendMessages();
+                return new Response { Succeeded = true, Message="Guardado Exitoso"};
             }
             catch (Exception ex)
             {
@@ -53,73 +50,55 @@ namespace WeatherA.Class
                     respuesta.Message = ex.Message;
                 }
                 new ManagerException().RegistrarError(new ReporteError { Fecha = DateTime.Now, Error = ex.Message, Traza = ex.ToString(), Origen = "AppWEb", Referencia = "Consulta DB" });
+
                 return respuesta;
             }
         }
 
-        public void saveWeatherSummary(DailyData dailyData)
+        public int saveWeatherSummary(CurrentData currentData)
         {
             WeatherSummary weatherSummary = new WeatherSummary();
-            int humidityAvg = 0;
-            int humidityHigh = 0;
-            int humidityLow = 0;
-            int cont = 0;
-            DateTime date = DateTime.MinValue;
-            foreach (Observation item in dailyData.observations)
-            {
-                humidityAvg = humidityAvg + item.humidityHigh;
-                humidityHigh = humidityHigh + item.humidityHigh;
-                humidityLow = humidityLow + item.humidityLow;
-                date = item.obsTimeUtc;
-                cont++;
-            }
-            weatherSummary.humidityAvg = humidityAvg / cont;
-            weatherSummary.humidityHigh = humidityHigh / cont;
-            weatherSummary.humidityLow = humidityLow / cont;
-            weatherSummary.obsTimeUtc = date;
+
+            ObservationC obs = currentData.observations.FirstOrDefault();
+
+            weatherSummary.humidity = obs.humidity;
+            weatherSummary.temp = obs.uk_hybrid.temp;
+            weatherSummary.precipRate = obs.uk_hybrid.precipRate;
+            weatherSummary.obsTimeLocal = obs.obsTimeLocal.ToString();
+            weatherSummary.neighborhood = obs.neighborhood;
+            weatherSummary.stationID = obs.stationID;
+
             dbase.WeatherSummaries.Add(weatherSummary);
             Response res = new Response();
             res = DbHelper.Save(dbase);
+            errorH.AddTrace(res.Message, "Trace", "saveWeatherSummary");
+            return weatherSummary.WeatherSummaryID > 0 ? weatherSummary.WeatherSummaryID : 0;
         }
-
-        /*internal string getParamValues(string v)
-        {
-            string param;
-            using (var connection = new SqlConnection(_connString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand(@"SELECT Session_logID, UserID, Date, Entry,Photo,Commentaries FROM dbo.Session_log", connection))
-
-                {
-                    command.Notification = null;
-                    var dependency = new SqlDependency(command);
-                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
-
-                    if (connection.State == ConnectionState.Closed)
-                        connection.Open();
-
-                    var reader = command.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        
-                        //E.Descripcion as Estado, M.Nombre as Nombre, Fecha,Comentarios
-                        if (reader["Commentaries"].ToString().Length < 1)
-                        {
-                            param = "";
-                        }
-                        else
-                        {
-                            param = (string)reader["Commentaries"];
-                        }
-                        string cid = (int)reader["UserID"];
-
-                    }
-                    return param;
-                }
-            }
-        }
-        */
+        
+        //public void saveWeatherSummary(DailyData dailyData)
+        //{
+        //    WeatherSummary weatherSummary = new WeatherSummary();
+        //    int humidityAvg = 0;
+        //    int humidityHigh = 0;
+        //    int humidityLow = 0;
+        //    int cont = 0;
+        //    DateTime date = DateTime.MinValue;
+        //    foreach (Observation item in dailyData.observations)
+        //    {
+        //        humidityAvg = humidityAvg + item.humidityHigh;
+        //        humidityHigh = humidityHigh + item.humidityHigh;
+        //        humidityLow = humidityLow + item.humidityLow;
+        //        date = item.obsTimeUtc;
+        //        cont++;
+        //    }
+        //    weatherSummary.humidityAvg = humidityAvg / cont;
+        //    weatherSummary.humidityHigh = humidityHigh / cont;
+        //    weatherSummary.humidityLow = humidityLow / cont;
+        //    weatherSummary.obsTimeUtc = date;
+        //    dbase.WeatherSummaries.Add(weatherSummary);
+        //    Response res = new Response();
+        //    res = DbHelper.Save(dbase);
+        //}
 
         public string getParamValue(string codParam)
         {

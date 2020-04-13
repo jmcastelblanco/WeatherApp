@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using WeatherA.Class;
 using WeatherA.Models;
 
 namespace Weather.Service
 {
-    public partial class WeatherService : ServiceBase
+    public partial class WeatherServices : ServiceBase
     {
         /// <summary>
         /// Valor de intervalo de ejecucicón del servicio
@@ -28,7 +21,7 @@ namespace Weather.Service
 
 
 
-        public WeatherService()
+        public WeatherServices()
         {
             InitializeComponent();
             this.intervaloEjecucion = 2 * 60000;

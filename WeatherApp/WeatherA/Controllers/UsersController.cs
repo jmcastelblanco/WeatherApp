@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using WeatherA.Models;
 using WeatherA.Class;
-using System.Data.Entity;
+using WeatherA.Models;
 
 namespace WeatherA.Controllers
 {
@@ -46,7 +42,7 @@ namespace WeatherA.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
@@ -99,7 +95,7 @@ namespace WeatherA.Controllers
             {
                 return HttpNotFound();
             }
-             ViewBag.RolID = new SelectList(CombosHelper.GetRoles(), "RolID", "Name", user.RolID);
+            ViewBag.RolID = new SelectList(CombosHelper.GetRoles(), "RolID", "Name", user.RolID);
             return View(user);
         }
 
@@ -156,4 +152,3 @@ namespace WeatherA.Controllers
         }
     }
 }
-            

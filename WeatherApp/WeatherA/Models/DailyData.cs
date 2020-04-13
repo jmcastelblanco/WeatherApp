@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace WeatherA.Models
 {
     public class DailyData
     {
-       public List<Observation> observations { get; set; }
+        public List<Observation> observations { get; set; }
     }
 }
