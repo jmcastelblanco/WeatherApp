@@ -68,9 +68,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Departamentos", "Index", "Departments")</li>
+                    <li>@Html.ActionLink("Variables", "About", "Home")</li>
+                    <li>@Html.ActionLink("Alertas", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Configuración", "Index", "Departments")</li>
+                    <li>@Html.ActionLink("Historial", "Index", "Departments")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -80,7 +81,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - WeatherApp</p>
         </footer>
     </div>
     <script src="signalr/hubs"></script>
