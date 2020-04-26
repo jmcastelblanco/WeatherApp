@@ -21,8 +21,7 @@ namespace WeatherA.Class
             using (var connection = new SqlConnection(_connString))
             {
                 connection.Open();
-                using (var command = new SqlCommand(@"SELECT obsTimeLocal,humidity,temp,precipRate FROM [dbo].[WeatherSummaries]", connection))
-
+                using (var command = new SqlCommand(@"SELECT StationID,WeatherSummaryID,StateID,date,AlertTypeID FROM [dbo].[Alerts]", connection))
                 {
                     command.Notification = null;
                     var dependency = new SqlDependency(command);
@@ -37,15 +36,16 @@ namespace WeatherA.Class
                     {
                         messagesView.Add(item: new MessagesView
                         {
-                            obsTimeUtc = reader["obsTimeLocal"].ToString(),
-                            humidityAvg = Int32.Parse(reader["humidity"].ToString()),
-                            humidityHigh = Int32.Parse(reader["temp"].ToString()),
-                            humidityLow = Int32.Parse(reader["precipRate"].ToString()),
+                            StationID = reader["StationID"].ToString(),
+                            WeatherSummaryID = Int32.Parse(reader["WeatherSummaryID"].ToString()),
+                            StateID = Int32.Parse(reader["StateID"].ToString()),
+                            Date = DateTime.Parse(reader["date"].ToString()),
+                            AlertTypeID = Int32.Parse(reader["AlertTypeID"].ToString())                             
                         });
                     }
                 }
             }
-            var newList = messagesView.OrderByDescending(c => c.obsTimeUtc).ToList();
+            var newList = messagesView.OrderByDescending(c => c.Date).ToList();
             return newList;
         }
 
@@ -80,15 +80,15 @@ namespace WeatherA.Class
             double tempMax = Double.Parse(dbH.getParamValue("tempMax"));
             double tempMin = Double.Parse(dbH.getParamValue("tempMin"));
 
-            if (temp > tempMin && temp < tempMin)
+            if (temp < tempMin || temp > tempMax)
             {
                 flatT = true;
             }
-            if (precipRate > precipMin && precipRate < precipMin)
+            if (precipRate < precipMin || precipRate > precipMax)
             {
                 flatP = true;
             }
-            if (humidity > humidityMin && humidity < humidityMin)
+            if (humidity < humidityMin || humidity > humidityMax)
             {
                 flatH = true;
             }

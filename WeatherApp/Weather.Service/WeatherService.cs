@@ -40,7 +40,7 @@ namespace Weather.Service
 
                 weatherDownload.ProcesarDescarga();
 
-                this.intervaloEjecucion = this.intervaloEjecucion * 60000;
+                this.intervaloEjecucion = this.intervaloEjecucion * 15000;
 
                 //Si se cambia la configuracion de tiempo de ejecucución del servicio se reasigna el tiempo y se reinicia el timer
                 if (this.timServicio.Interval != this.intervaloEjecucion)

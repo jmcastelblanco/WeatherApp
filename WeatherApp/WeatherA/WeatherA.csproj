@@ -208,12 +208,14 @@
     <Compile Include="Class\Serialization.cs" />
     <Compile Include="Class\UsuariosHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlertsController.cs" />
     <Compile Include="Controllers\CameraController.cs" />
     <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Session_logController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WeatherSummariesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,10 +267,17 @@
     <Content Include="Content\jquery-1.12.4.js" />
     <Content Include="Content\jquery.dataTables.min.js" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\mapa.jpeg" />
     <Content Include="Content\MvcBootstrapTimepicker.css" />
     <Content Include="Content\MvcBootstrapTimepicker.js" />
     <Content Include="Content\responsive.bootstrap.min.css" />
     <Content Include="Content\responsive.bootstrap.min.js" />
+    <Content Include="Content\Stylos\chart-area-demo.js" />
+    <Content Include="Content\Stylos\chart-bar-demo.js" />
+    <Content Include="Content\Stylos\chart-pie-demo.js" />
+    <Content Include="Content\Stylos\datatables-demo.js" />
+    <Content Include="Content\Stylos\scripts.js" />
+    <Content Include="Content\Stylos\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -339,6 +348,17 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\_MessagesList.cshtml" />
     <Content Include="Views\Home\Index - Copia.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copia.cshtml" />
+    <Content Include="Views\Alerts\Create.cshtml" />
+    <Content Include="Views\Alerts\Delete.cshtml" />
+    <Content Include="Views\Alerts\Details.cshtml" />
+    <Content Include="Views\Alerts\Edit.cshtml" />
+    <Content Include="Views\Alerts\Index.cshtml" />
+    <Content Include="Views\WeatherSummaries\Create.cshtml" />
+    <Content Include="Views\WeatherSummaries\Delete.cshtml" />
+    <Content Include="Views\WeatherSummaries\Details.cshtml" />
+    <Content Include="Views\WeatherSummaries\History.cshtml" />
+    <Content Include="Views\WeatherSummaries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

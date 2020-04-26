@@ -1,0 +1,66 @@
+﻿@model WeatherA.Models.WeatherSummary
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WeatherSummary</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.humidity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.humidity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precipRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precipRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.obsTimeLocal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.obsTimeLocal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.neighborhood)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.neighborhood)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stationID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WeatherSummaryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

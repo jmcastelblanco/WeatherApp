@@ -1,10 +1,13 @@
-﻿namespace WeatherA.Class
+﻿using System;
+
+namespace WeatherA.Class
 {
     public class MessagesView
     {
-        public string obsTimeUtc { get; set; }
-        public int humidityHigh { get; set; }
-        public int humidityLow { get; set; }
-        public int humidityAvg { get; set; }
+        public string StationID { get; set; }
+        public int WeatherSummaryID { get; set; }
+        public int StateID { get; set; }
+        public int AlertTypeID { get; set; }
+        public DateTime Date { get; set; }
     }
 }
