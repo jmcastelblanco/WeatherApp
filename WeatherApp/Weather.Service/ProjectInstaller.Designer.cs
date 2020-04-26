@@ -30,17 +30,19 @@
         {
             this.WeatherDownloadInstaller = new System.ServiceProcess.ServiceProcessInstaller();
             this.WeatherDowloadData = new System.ServiceProcess.ServiceInstaller();
+            this.WeatherDownloadInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             // 
             // WeatherDownloadInstaller
             // 
-            this.WeatherDownloadInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
-            this.WeatherDownloadInstaller.Password = null;
-            this.WeatherDownloadInstaller.Username = null;
+            //this.WeatherDownloadInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
+            //this.WeatherDownloadInstaller.Password = null;
+            //this.WeatherDownloadInstaller.Username = null;
             this.WeatherDownloadInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceProcessInstaller1_AfterInstall);
             // 
             // WeatherDowloadData
             // 
-            this.WeatherDowloadData.ServiceName = "WeatherConsume";
+            this.WeatherDowloadData.Description = "Weather Dd";
+            this.WeatherDowloadData.ServiceName = "WeatherDownloadData";
             this.WeatherDowloadData.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
