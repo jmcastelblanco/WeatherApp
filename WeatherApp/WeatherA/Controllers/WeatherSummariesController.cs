@@ -1,109 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WeatherA.Class;
 using WeatherA.Models;
+using WeatherServices;
 
 namespace WeatherA.Controllers
 {
     public class WeatherSummariesController : Controller
     {
         private WeatherAContext db = new WeatherAContext();
+        
 
         // GET: WeatherSummaries
         public ActionResult Index()
         {
+            
             return View(db.WeatherSummaries.FirstOrDefault());
         }
-
-        // GET: WeatherSummaries/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WeatherSummary weatherSummary = db.WeatherSummaries.Find(id);
-            if (weatherSummary == null)
-            {
-                return HttpNotFound();
-            }
-            return View(weatherSummary);
-        }
-
-        // GET: WeatherSummaries/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: WeatherSummaries/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WeatherSummaryID,humidity,temp,precipRate,obsTimeLocal,neighborhood,stationID")] WeatherSummary weatherSummary)
-        {
-            if (ModelState.IsValid)
-            {
-                db.WeatherSummaries.Add(weatherSummary);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(weatherSummary);
-        }
-
-        // GET: WeatherSummaries/Edit/5
         public ActionResult History()
         {
+            string result = string.Empty;
+            string URL = "https://api.weather.com/v2/pws/dailysummary/7day?stationId=ISANJU36&format=json&units=e&apiKey=be06c9df19a94dd986c9df19a92dd9ea";
+            Data data = new Data();
+            Consume consume = new Consume();
+            Serialization serialization = new Serialization();
+            result = consume.DownloadData(URL);
+            data = serialization.DesSerializar7(result);
+            ViewBag.Hum1 = data.summaries[0].humidityAvg;
+            ViewBag.Hum2 = data.summaries[1].humidityAvg;
+            ViewBag.Hum3 = data.summaries[2].humidityAvg;
+            ViewBag.Hum4 = data.summaries[3].humidityAvg;
+            ViewBag.Hum5 = data.summaries[4].humidityAvg;
+            ViewBag.Hum6 = data.summaries[5].humidityAvg;
+            ViewBag.Hum7 = data.summaries[6].humidityAvg;
+            ViewBag.Tem1 = data.summaries[0].imperial.tempAvg;
+            ViewBag.Tem2 = data.summaries[1].imperial.tempAvg;
+            ViewBag.Tem3 = data.summaries[2].imperial.tempAvg;
+            ViewBag.Tem4 = data.summaries[3].imperial.tempAvg;
+            ViewBag.Tem5 = data.summaries[4].imperial.tempAvg;
+            ViewBag.Tem6 = data.summaries[5].imperial.tempAvg;
+            ViewBag.Tem7 = data.summaries[6].imperial.tempAvg;
+            ViewBag.Pre1 = data.summaries[0].imperial.precipRate;
+            ViewBag.Pre2 = data.summaries[1].imperial.precipRate;
+            ViewBag.Pre3 = data.summaries[2].imperial.precipRate;
+            ViewBag.Pre4 = data.summaries[3].imperial.precipRate;
+            ViewBag.Pre5 = data.summaries[4].imperial.precipRate;
+            ViewBag.Pre6 = data.summaries[5].imperial.precipRate;
+            ViewBag.Pre7 = data.summaries[6].imperial.precipRate;
             return View();
-        }
-
-        // POST: WeatherSummaries/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WeatherSummaryID,humidity,temp,precipRate,obsTimeLocal,neighborhood,stationID")] WeatherSummary weatherSummary)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(weatherSummary).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(weatherSummary);
-        }
-
-        // GET: WeatherSummaries/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WeatherSummary weatherSummary = db.WeatherSummaries.Find(id);
-            if (weatherSummary == null)
-            {
-                return HttpNotFound();
-            }
-            return View(weatherSummary);
-        }
-
-        // POST: WeatherSummaries/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            WeatherSummary weatherSummary = db.WeatherSummaries.Find(id);
-            db.WeatherSummaries.Remove(weatherSummary);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

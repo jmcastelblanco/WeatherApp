@@ -13,7 +13,7 @@ namespace WeatherA.Models
         public double lon { get; set; }
         public object solarRadiationHigh { get; set; }
         public object uvHigh { get; set; }
-        public int winddirAvg { get; set; }
+        public object winddirAvg { get; set; }
         public int humidityHigh { get; set; }
         public int humidityLow { get; set; }
         public int humidityAvg { get; set; }

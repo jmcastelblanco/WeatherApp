@@ -1,17 +1,46 @@
 ﻿@model WeatherA.Models.WeatherSummary
 
-@{
-    ViewBag.Title = "Edit";
-}
-
+    <input type="hidden" id="Tem1" value="@ViewBag.Tem1" />
+    <input type="hidden" id="Tem2" value="@ViewBag.Tem2" />
+    <input type="hidden" id="Tem3" value="@ViewBag.Tem3" />
+    <input type="hidden" id="Tem4" value="@ViewBag.Tem4" />
+    <input type="hidden" id="Tem5" value="@ViewBag.Tem5" />
+    <input type="hidden" id="Tem6" value="@ViewBag.Tem6" />
+    <input type="hidden" id="Tem7" value="@ViewBag.Tem7" />
+    <input type="hidden" id="Hum1" value="@ViewBag.Hum1" />
+    <input type="hidden" id="Hum2" value="@ViewBag.Hum2" />
+    <input type="hidden" id="Hum3" value="@ViewBag.Hum3" />
+    <input type="hidden" id="Hum4" value="@ViewBag.Hum4" />
+    <input type="hidden" id="Hum5" value="@ViewBag.Hum5" />
+    <input type="hidden" id="Hum6" value="@ViewBag.Hum6" />
+    <input type="hidden" id="Hum7" value="@ViewBag.Hum7" />
+    <input type="hidden" id="Pre1" value="@ViewBag.Pre1" />
+    <input type="hidden" id="Pre2" value="@ViewBag.Pre2" />
+    <input type="hidden" id="Pre3" value="@ViewBag.Pre3" />
+    <input type="hidden" id="Pre4" value="@ViewBag.Pre4" />
+    <input type="hidden" id="Pre5" value="@ViewBag.Pre5" />
+    <input type="hidden" id="Pre6" value="@ViewBag.Pre6" />
+    <input type="hidden" id="Pre7" value="@ViewBag.Pre7" />
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Charts</h1>
+            <h1 class="mt-4">Historial</h1>
 
             <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Historial Temperatura</div>
+                <div class="card-body"><canvas id="TemAreaChart" width="100%" height="30"></canvas></div>
+                <div class="card-footer small text-muted">Datos de los ultimos 7 dias </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Historial Humedad</div>
+                <div class="card-body"><canvas id="HumAreaChart" width="100%" height="30"></canvas></div>
+                <div class="card-footer small text-muted">Datos de los ultimos 7 dias </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Historial Precipitación</div>
+                <div class="card-body"><canvas id="PreAreaChart" width="100%" height="30"></canvas></div>
+                <div class="card-footer small text-muted">Datos de los ultimos 7 dias </div>
             </div>
         </div>
     </main>

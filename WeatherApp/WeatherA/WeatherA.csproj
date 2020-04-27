@@ -348,7 +348,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\_MessagesList.cshtml" />
     <Content Include="Views\Home\Index - Copia.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copia.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Alerts\Create.cshtml" />
     <Content Include="Views\Alerts\Delete.cshtml" />
     <Content Include="Views\Alerts\Details.cshtml" />

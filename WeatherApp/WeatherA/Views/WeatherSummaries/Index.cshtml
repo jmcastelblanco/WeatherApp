@@ -9,19 +9,21 @@
         <div class="card mb-4">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Temperatura</div>
             <div class="card-body">
-                @Html.DisplayFor(model => model.temp)
+                <div style="font-family:Calibri;font-size:50px;font-weight:900"> @Html.DisplayFor(model => model.temp)°C</div>
             </div>
         </div>
         <div class="card mb-4">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Humedad</div>
             <div class="card-body">
-                @Html.DisplayFor(model => model.humidity)
+                <div style="font-family:Calibri;font-size:50px;font-weight:900"> @Html.DisplayFor(model => model.humidity)%</div>
+                
             </div>
         </div>
         <div class="card mb-4">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Pluviometria</div>
             <div class="card-body">
-                @Html.DisplayFor(model => model.precipRate)
+                <div style="font-family:Calibri;font-size:50px;font-weight:900"> @Html.DisplayFor(model => model.precipRate)MM</div>
+                
             </div>
         </div>
     </div>
