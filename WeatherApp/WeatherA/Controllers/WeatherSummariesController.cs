@@ -10,6 +10,10 @@ using System.Web.Mvc;
 using WeatherA.Class;
 using WeatherA.Models;
 using WeatherServices;
+using Newtonsoft.Json;
+using Twilio.AspNet.Mvc;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace WeatherA.Controllers
 {
@@ -26,6 +30,19 @@ namespace WeatherA.Controllers
         }
         public ActionResult History()
         {
+            //const string accountSid = "AC636593d50d70e987072430d1c0649a27";
+            //const string authToken = "0c5bfdd312a88eab67211dd5d3e07d45";
+
+            //TwilioClient.Init(accountSid, authToken);
+
+            //var message = MessageResource.Create(
+            //    body: "Mensaje de prueba enviado por twilio",
+            //    from: new Twilio.Types.PhoneNumber("+573206305045"),
+            //    to: new Twilio.Types.PhoneNumber("+573206305045")
+            //);
+
+            //Console.WriteLine(message.Sid);
+            Class.MailHelper.SendMailTo();
             string result = string.Empty;
             string URL = "https://api.weather.com/v2/pws/dailysummary/7day?stationId=ISANJU36&format=json&units=e&apiKey=be06c9df19a94dd986c9df19a92dd9ea";
             Data data = new Data();
