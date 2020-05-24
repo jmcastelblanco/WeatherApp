@@ -70,8 +70,8 @@ namespace WeatherA.Class
 
             Alert alert = null;
 
-            double temp = current.observations.FirstOrDefault().uk_hybrid.temp;
-            double precipRate = current.observations.FirstOrDefault().uk_hybrid.precipRate;
+            double? temp = current.observations.FirstOrDefault().uk_hybrid.temp;
+            double? precipRate = current.observations.FirstOrDefault().uk_hybrid.precipRate;
             int humidity = current.observations.FirstOrDefault().humidity;
             int humidityMax = Int32.Parse(dbH.getParamValue("humidityMax"));
             int humidityMin = Int32.Parse(dbH.getParamValue("humidityMin"));
@@ -104,6 +104,14 @@ namespace WeatherA.Class
                 };
                 db.Alerts.Add(alert);
                 DbHelper.Save(db);
+                string content = "";
+                content = content + "Saludos," + System.Environment.NewLine;
+                content = content + "El sistema presenta una alerta de tipo broca" + System.Environment.NewLine;
+                content = content + "Estación: "+ current.observations.FirstOrDefault().stationID + System.Environment.NewLine;
+                content = content + "Fecha" + DateTime.Now + System.Environment.NewLine;
+                content = content + "Registro: " + id + System.Environment.NewLine;
+                bool ban = MailHelper.SendMailTo(content);
+                
             }
             return alert;
         }

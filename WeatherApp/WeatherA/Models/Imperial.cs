@@ -23,8 +23,8 @@
         public object pressureMax { get; set; }
         public object pressureMin { get; set; }
         public object pressureTrend { get; set; }
-        public double precipRate { get; set; }
-        public double precipTotal { get; set; }
+        public double? precipRate { get; set; }
+        public double? precipTotal { get; set; }
     }
 
 }

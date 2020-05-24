@@ -30,19 +30,6 @@ namespace WeatherA.Controllers
         }
         public ActionResult History()
         {
-            //const string accountSid = "AC636593d50d70e987072430d1c0649a27";
-            //const string authToken = "0c5bfdd312a88eab67211dd5d3e07d45";
-
-            //TwilioClient.Init(accountSid, authToken);
-
-            //var message = MessageResource.Create(
-            //    body: "Mensaje de prueba enviado por twilio",
-            //    from: new Twilio.Types.PhoneNumber("+573206305045"),
-            //    to: new Twilio.Types.PhoneNumber("+573206305045")
-            //);
-
-            //Console.WriteLine(message.Sid);
-            Class.MailHelper.SendMailTo();
             string result = string.Empty;
             string URL = "https://api.weather.com/v2/pws/dailysummary/7day?stationId=ISANJU36&format=json&units=e&apiKey=be06c9df19a94dd986c9df19a92dd9ea";
             Data data = new Data();
@@ -64,13 +51,43 @@ namespace WeatherA.Controllers
             ViewBag.Tem5 = data.summaries[4].imperial.tempAvg;
             ViewBag.Tem6 = data.summaries[5].imperial.tempAvg;
             ViewBag.Tem7 = data.summaries[6].imperial.tempAvg;
-            ViewBag.Pre1 = data.summaries[0].imperial.precipRate;
-            ViewBag.Pre2 = data.summaries[1].imperial.precipRate;
-            ViewBag.Pre3 = data.summaries[2].imperial.precipRate;
-            ViewBag.Pre4 = data.summaries[3].imperial.precipRate;
-            ViewBag.Pre5 = data.summaries[4].imperial.precipRate;
-            ViewBag.Pre6 = data.summaries[5].imperial.precipRate;
-            ViewBag.Pre7 = data.summaries[6].imperial.precipRate;
+            ViewBag.Pre1 = 0;
+            ViewBag.Pre2 = 0;
+            ViewBag.Pre3 = 0;
+            ViewBag.Pre4 = 0;
+            ViewBag.Pre5 = 0;
+            ViewBag.Pre6 = 0;
+            ViewBag.Pre7 = 0;
+
+            if (data.summaries[0].imperial.precipRate != null)
+            {
+                ViewBag.Pre1 = (float)data.summaries[0].imperial.precipRate * 100;
+            }
+            if (data.summaries[1].imperial.precipRate != null)
+            {
+                ViewBag.Pre2 = (float)data.summaries[1].imperial.precipRate * 100;
+            }
+            if (data.summaries[2].imperial.precipRate != null)
+            {
+                ViewBag.Pre3 = (float)data.summaries[2].imperial.precipRate * 100;
+            }
+            if (data.summaries[3].imperial.precipRate != null)
+            {
+                ViewBag.Pre4 = (float)data.summaries[3].imperial.precipRate * 100;
+            }
+            if (data.summaries[4].imperial.precipRate != null)
+            {
+                ViewBag.Pre5 = (float)data.summaries[4].imperial.precipRate * 100;
+            }
+            if (data.summaries[5].imperial.precipRate != null)
+            {
+                ViewBag.Pre6 = (float)data.summaries[5].imperial.precipRate * 100;
+            }
+            if (data.summaries[6].imperial.precipRate != null)
+            {
+                ViewBag.Pre7 = (float)data.summaries[6].imperial.precipRate * 100;
+            }
+            
             return View();
         }
 
